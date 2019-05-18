@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "user_3")
+@Table(name = "g_user")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
