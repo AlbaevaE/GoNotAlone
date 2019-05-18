@@ -14,36 +14,45 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "name", nullable = false)
     private String name;
+    @Column(name = "phoneNumber", nullable = false)
     private String phoneNumber;
+    @Column(name = "email", nullable = false)
     private String email;
+    @Column(name = "login", nullable = false, unique = true)
+    private String login;
+    @Column(name = "password", nullable = false, unique = true)
+    private String password;
+    @Column(name = "is_active", nullable = false)
+    private int isActive;
 
     public static class UserBuild {
         private Long id;
         private String name;
         private String phoneNumber;
         private String email;
+        private String login;
+        private String password;
+        private int isActive;
 
-
-        public UserBuild(String name) {
+        public UserBuild(String name, String phoneNumber, String email, String login, String password) {
             this.name = name;
-        }
-
-        public UserBuild withPhoneNumber(String phoneNumber) {
             this.phoneNumber = phoneNumber;
-            return this;
+            this.email = email;
+            this.login = login;
+            this.password = password;
         }
 
-        public UserBuild withEmail(String email) {
-            this.email = email;
-            return this;
-        }
 
         public User build() {
             User user = new User();
             user.name = this.name;
             user.phoneNumber = this.phoneNumber;
             user.email = this.email;
+            user.login = this.login;
+            user.password = this.password;
+            user.isActive = this.isActive;
             return user;
         }
     }
