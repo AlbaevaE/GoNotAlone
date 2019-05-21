@@ -1,6 +1,5 @@
 package com.example.goNotAlone.service;
 
-import com.example.goNotAlone.repository.GenericRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
