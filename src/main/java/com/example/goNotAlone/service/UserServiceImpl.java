@@ -1,39 +1,42 @@
 package com.example.goNotAlone.service;
 
-import com.example.goNotAlone.model.Activity;
+import com.example.goNotAlone.model.User;
+import com.example.goNotAlone.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserServiceImpl implements GenericService {
+public class UserServiceImpl implements GenericService<User> {
     @Autowired
-    private GenericRepository genericRepository;
+    private UserRepository userRepository;
 
 
     @Override
-    public Activity addG(Object o) {
-        return this.genericRepository.save(o);
+    public User addG(User user) {
+        return this.userRepository.save(user);
     }
 
     @Override
-    public Activity getById(Long id) {
-        return this.genericRepository.findById(id).get();
+    public User getById(Long id) {
+        return this.userRepository.findById(id).get();
     }
 
     @Override
-    public List getAll() {
-        return this.genericRepository.findAll();
+    public List<User> getAll() {
+        return this.userRepository.findAll();
     }
 
     @Override
     public void deleteById(Long id) {
-        this.genericRepository.deleteById(id);
+        this.userRepository.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-        this.genericRepository.deleteAll();
+        this.userRepository.deleteAll();
     }
+
+
 }
