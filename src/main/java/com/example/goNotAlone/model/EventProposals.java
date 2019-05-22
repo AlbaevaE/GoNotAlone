@@ -10,8 +10,6 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "travel_deals")
-public class TravelDeals extends AbstractSuggest {
-
-
+@Table(name = "event_proposal")
+public class EventProposals extends AbstractSuggest {
 }
