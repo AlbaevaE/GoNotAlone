@@ -11,5 +11,5 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "event_proposal")
-public class EventProposals extends AbstractSuggest {
+public class EventProposals extends AbstractSuggest {//предложения по мероприятиям
 }

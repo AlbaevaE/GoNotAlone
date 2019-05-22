@@ -11,7 +11,7 @@ import javax.persistence.Table;
 @AllArgsConstructor
 @Entity
 @Table(name = "travel_deals")
-public class TravelDeals extends AbstractSuggest {
+public class TravelDeals extends AbstractSuggest {// предложения по поездкам
 
 
 }
