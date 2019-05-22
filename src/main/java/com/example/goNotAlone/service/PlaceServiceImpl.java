@@ -1,6 +1,5 @@
 package com.example.goNotAlone.service;
 
-import com.example.goNotAlone.model.Activity;
 import com.example.goNotAlone.model.Place;
 import com.example.goNotAlone.repository.PlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
