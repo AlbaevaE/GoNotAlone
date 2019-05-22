@@ -9,9 +9,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Entity
-@Table(name = "suggest")
-public class Suggest {
+public abstract class AbstractSuggest {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;

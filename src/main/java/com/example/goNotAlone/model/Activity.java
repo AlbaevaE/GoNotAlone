@@ -19,6 +19,6 @@ public class Activity {
     @OneToOne
     @JoinColumn(name = "place_id")
     private Place place;
-    private String description;
+    private String description;//описание
 
 }

@@ -1,6 +1,6 @@
 package com.example.goNotAlone.service;
 
-import com.example.goNotAlone.model.Suggest;
+import com.example.goNotAlone.model.AbstractSuggest;
 import com.example.goNotAlone.repository.SuggestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,23 +8,23 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class SuggestServiceImpl implements GenericService<Suggest> {
+public class SuggestServiceImpl implements GenericService<AbstractSuggest> {
     @Autowired
     private SuggestRepository suggestRepository;
 
 
     @Override
-    public Suggest addG(Suggest suggest) {
+    public AbstractSuggest addG(AbstractSuggest suggest) {
         return this.suggestRepository.save(suggest);
     }
 
     @Override
-    public Suggest getById(Long id) {
+    public AbstractSuggest getById(Long id) {
         return this.suggestRepository.findById(id).get();
     }
 
     @Override
-    public List<Suggest> getAll() {
+    public List<AbstractSuggest> getAll() {
         return this.suggestRepository.findAll();
     }
 
