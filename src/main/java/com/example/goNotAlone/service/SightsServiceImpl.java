@@ -1,5 +1,6 @@
 package com.example.goNotAlone.service;
 
+import com.example.goNotAlone.model.Activity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,12 +13,12 @@ public class SightsServiceImpl implements GenericService {
 
 
     @Override
-    public Object addG(Object o) {
+    public Activity addG(Object o) {
         return this.genericRepository.save(o);
     }
 
     @Override
-    public Object getById(Long id) {
+    public Activity getById(Long id) {
         return this.genericRepository.findById(id).get();
     }
 
