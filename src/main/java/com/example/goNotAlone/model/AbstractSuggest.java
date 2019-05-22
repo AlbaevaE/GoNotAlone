@@ -21,6 +21,6 @@ public abstract class AbstractSuggest {
     private Place place;
     @OneToMany
     @JoinColumn(name = "activity_id")
-    private Activity activity;
+    private Event activity;
 
 }

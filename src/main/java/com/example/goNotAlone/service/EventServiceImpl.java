@@ -1,25 +1,25 @@
 package com.example.goNotAlone.service;
 
-import com.example.goNotAlone.model.Activity;
-import com.example.goNotAlone.repository.ActivityRepository;
+import com.example.goNotAlone.model.Event;
+import com.example.goNotAlone.repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class ActivityServiceImpl implements GenericService<Activity> {
+public class EventServiceImpl implements GenericService<Event> {
     @Autowired
-    private ActivityRepository activityRepository;
+    private EventRepository activityRepository;
 
 
     @Override
-    public Activity addG(Activity activity) {
+    public Event addG(Event activity) {
         return this.activityRepository.save(activity);
     }
 
     @Override
-    public Activity getById(Long id) {
+    public Event getById(Long id) {
         return this.activityRepository.findById(id).get();
     }
 
