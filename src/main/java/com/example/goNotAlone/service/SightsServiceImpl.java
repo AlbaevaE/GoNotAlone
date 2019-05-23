@@ -2,7 +2,6 @@ package com.example.goNotAlone.service;
 
 
 import com.example.goNotAlone.model.Sights;
-import com.example.goNotAlone.repository.SightsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

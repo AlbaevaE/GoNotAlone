@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 @RequestMapping(TravelDealsController.URL_TRAVEL_DEALS)
 public class TravelDealsController {
-    public static final String URL_TRAVEL_DEALS = "/goNotAlone/TravelDeals";
+    public static final String URL_TRAVEL_DEALS = "/goNotAlone/TravelDealsRepository";
 
     @Autowired
     private GenericService<TravelDeals> genericService;
