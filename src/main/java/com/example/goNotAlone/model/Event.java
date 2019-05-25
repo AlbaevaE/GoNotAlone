@@ -16,11 +16,14 @@ public class Event {
     @JoinColumn(name = "place_id")
     private Place place;
     private String description;//описание
+//время и дату
+    //поиск по месту или дате или названию
+    //категория мероприятия
 
     public Event() {
     }
 
-    public Event(Long id, String name, Place place, String description) {
+    public Event(String name, Place place, String description) {
         this.id = id;
         this.name = name;
         this.place = place;

@@ -25,8 +25,7 @@ public class EventProposals {//предложения по мероприяти�
     public EventProposals() {
     }
 
-    public EventProposals(Long id, User user, Place place, Event event) {
-        this.id = id;
+    public EventProposals( User user, Place place, Event event) {
         this.user = user;
         this.place = place;
         this.event = event;

@@ -1,11 +1,17 @@
 package com.example.goNotAlone.controller;
 
 import com.example.goNotAlone.model.User;
+import com.example.goNotAlone.model.UserRoles;
+import com.example.goNotAlone.repository.UserRepository;
+import com.example.goNotAlone.repository.UserRolesRepository;
 import com.example.goNotAlone.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 @RestController
@@ -15,6 +21,14 @@ public class UserController {
 
     @Autowired
     private GenericService<User> genericService;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserRolesRepository userRolesRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @GetMapping(path = "/getUserById/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public User getUserById(@PathVariable Long id) {
@@ -40,5 +54,13 @@ public class UserController {
     @DeleteMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public void deleteAllUsers() {
         this.genericService.deleteAll();
+    }
+
+    public User saveUser(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setIsActive(1);
+        UserRoles userRole = userRolesRepository.findByRole("ADMIN");
+        user.setRoles(new HashSet<UserRoles>(Arrays.asList(userRole)));
+        return userRepository.save(user);
     }
 }

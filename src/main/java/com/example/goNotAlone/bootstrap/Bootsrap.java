@@ -28,10 +28,10 @@ public class Bootsrap implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        UserRoles userRoles = new UserRoles("ADMIN");
         User user1 = new User.UserBuild("Kate", "0778412796",
                 "aelvira312@gmail.com", "elvira", "Babushka85").build();
         userRepository.save(user1);
-        UserRoles userRoles = new UserRoles("USER_ROLE", user1);
         userRolesRepository.save(userRoles);
         Place p = new Place("Bishkek");
         placeRepository.save(p);

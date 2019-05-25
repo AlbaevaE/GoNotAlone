@@ -2,8 +2,11 @@ package com.example.goNotAlone.service;
 
 import com.example.goNotAlone.model.User;
 import com.example.goNotAlone.repository.UserRepository;
+import com.example.goNotAlone.repository.UserRolesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 
 import java.util.List;
 
@@ -11,6 +14,14 @@ import java.util.List;
 public class UserServiceImpl implements GenericService<User> {
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserRolesRepository roleRepository;
+
+
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
 
 
     @Override

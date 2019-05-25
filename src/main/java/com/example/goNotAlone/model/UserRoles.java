@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Data
-@NoArgsConstructor
 @Entity
 @Table(name = "user_roles")
 public class UserRoles {
@@ -15,18 +14,12 @@ public class UserRoles {
     private Long id;
     @Column(name = "role_name", nullable = false, length = 100)
     private String roleName;
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 
-    public UserRoles(Long id, String roleName, User user) {
-        this.id = id;
-        this.roleName = roleName;
-        this.user = user;
+    public UserRoles() {
     }
 
-    public UserRoles(String roleName, User user) {
+    public UserRoles(String roleName) {
         this.roleName = roleName;
-        this.user = user;
+
     }
 }

@@ -21,8 +21,7 @@ public class Sights {//достопримечательности
     public Sights() {
     }
 
-    public Sights(Long id, String name, Place place) {
-        this.id = id;
+    public Sights(String name, Place place) {
         this.name = name;
         this.place = place;
     }

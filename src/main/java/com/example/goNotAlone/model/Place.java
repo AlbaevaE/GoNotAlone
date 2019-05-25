@@ -12,14 +12,16 @@ public class Place {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String place;
+    private String place;//описание
 
-
+    // долгота ширина
+//функционал подтверждения
+    //сортировка по дате
+    //место должно принадлежать юзеру
     public Place() {
     }
 
-    public Place(Long id, String place) {
-        this.id = id;
+    public Place(String place) {
         this.place = place;
     }
 }

@@ -26,8 +26,7 @@ public class TravelDeals {// предложения по поездкам
     public TravelDeals() {
     }
 
-    public TravelDeals(Long id, User user, Place place, Event activity) {
-        this.id = id;
+    public TravelDeals(User user, Place place, Event activity) {
         this.user = user;
         this.place = place;
         this.activity = activity;

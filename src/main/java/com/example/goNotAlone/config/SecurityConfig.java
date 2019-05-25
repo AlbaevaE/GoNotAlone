@@ -23,12 +23,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/goNotAlone/Place/addPlace",
-                        "/goNotAlone/Place/getPlace",
-                        "/goNotAlone/Place/deletePlace",
-                        "/goNotAlone/Place/getAllPlace",
-                        "/goNotAlone/Place/deleteAllPlace")
-                .access("hasRole('USER')")
+                .antMatchers(//"/goNotAlone/Place/addPlace",
+//                        "/goNotAlone/Place/getPlace",
+//                        "/goNotAlone/Place/deletePlace",
+//                        "/goNotAlone/Place/getAllPlace",
+//                        "/goNotAlone/Place/deleteAllPlace"
+                          "/goNotAlone/**",
+                        "/goNotAlone/User/")
+                .access("hasRole('ADMIN')")
                 .and()
                 .httpBasic()
                 .and()
