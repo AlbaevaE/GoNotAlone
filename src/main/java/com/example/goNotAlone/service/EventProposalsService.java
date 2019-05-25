@@ -3,9 +3,10 @@ package com.example.goNotAlone.service;
 import com.example.goNotAlone.model.EventProposals;
 import com.example.goNotAlone.repository.EventProposalsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class EventProposalsService implements GenericService<EventProposals> {
     @Autowired
     private EventProposalsRepository eventProposalsRepository;

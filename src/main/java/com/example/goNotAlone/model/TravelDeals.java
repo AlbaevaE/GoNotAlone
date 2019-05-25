@@ -1,13 +1,35 @@
 package com.example.goNotAlone.model;
 
 
+import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
 
+import javax.persistence.*;
+
+@Data
 @Entity
 @Table(name = "travel_deals")
-public class TravelDeals extends AbstractSuggest {// предложения по поездкам
+public class TravelDeals {// предложения по поездкам
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+    @OneToOne
+    @JoinColumn(name = "place_id")
+    private Place place;
+    @OneToOne
+    @JoinColumn(name = "event_id")
+    private Event activity;
 
+    public TravelDeals() {
+    }
 
+    public TravelDeals(Long id, User user, Place place, Event activity) {
+        this.id = id;
+        this.user = user;
+        this.place = place;
+        this.activity = activity;
+    }
 }

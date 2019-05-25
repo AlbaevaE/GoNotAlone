@@ -1,14 +1,10 @@
 package com.example.goNotAlone.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "event")
 public class Event {
@@ -21,4 +17,13 @@ public class Event {
     private Place place;
     private String description;//описание
 
+    public Event() {
+    }
+
+    public Event(Long id, String name, Place place, String description) {
+        this.id = id;
+        this.name = name;
+        this.place = place;
+        this.description = description;
+    }
 }

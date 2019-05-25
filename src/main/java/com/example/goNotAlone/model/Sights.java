@@ -1,14 +1,12 @@
 package com.example.goNotAlone.model;
 
-import lombok.AllArgsConstructor;
+
 import lombok.Data;
-import lombok.NoArgsConstructor;
+
 
 import javax.persistence.*;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "sights")
 public class Sights {//достопримечательности
@@ -19,4 +17,13 @@ public class Sights {//достопримечательности
     @OneToOne
     @JoinColumn(name = "place_id")
     private Place place;
+
+    public Sights() {
+    }
+
+    public Sights(Long id, String name, Place place) {
+        this.id = id;
+        this.name = name;
+        this.place = place;
+    }
 }
