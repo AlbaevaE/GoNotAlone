@@ -69,6 +69,19 @@ public class Event {
             return this;
         }
 
+        public Event build() {
+            Event event = new Event();
+            event.name = this.name;
+            event.place = this.place;
+            event.description = this.description;
+            event.calendar = this.calendar;
+            event.category = this.category;
+            event.user = this.user;
+            event.time = this.time;
+            return event;
+        }
+
+
     }
 
 }
