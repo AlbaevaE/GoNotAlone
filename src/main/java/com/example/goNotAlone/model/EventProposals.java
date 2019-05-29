@@ -1,5 +1,6 @@
 package com.example.goNotAlone.model;
 
+import com.example.goNotAlone.enums.ApplicationStatus;
 import com.example.goNotAlone.enums.Category;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -29,7 +30,7 @@ public class EventProposals {//предложения по мероприяти�
     private Calendar calendar;//время и дата
     private Category category; //категория мероприятия
     private LocalDateTime time;
-    private boolean approved;
+    private ApplicationStatus status;
 
     public static class ProposalBuild {
         private Long id;
@@ -40,7 +41,7 @@ public class EventProposals {//предложения по мероприяти�
         private Calendar calendar;
         private Category category;
         private LocalDateTime time;
-        private boolean approved;
+        private ApplicationStatus status;
 
         public ProposalBuild(String name, User user, Place place) {
             this.name = name;
@@ -76,4 +77,5 @@ public class EventProposals {//предложения по мероприяти�
         }
     }
     //здесь нужен метод одобрения заявки через сеттер
+
 }
