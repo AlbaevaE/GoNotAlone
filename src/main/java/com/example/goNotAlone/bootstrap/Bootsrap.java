@@ -20,28 +20,25 @@ public class Bootsrap implements CommandLineRunner {
     @Autowired
     SightsRepository sightsRepository;
     @Autowired
-    TravelDealsRepository travelDealsRepository;
-    @Autowired
-    UserRolesRepository userRolesRepository;
+    RoleRepository roleRepository;
 
 
     @Override
     public void run(String... args) throws Exception {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        UserRoles userRoles = new UserRoles("ADMIN");
+        Role userRoles = new Role("ADMIN");
         User user1 = new User.UserBuild("Kate", "0778412796",
                 "aelvira312@gmail.com", "elvira", "Babushka85").build();
         userRepository.save(user1);
-        userRolesRepository.save(userRoles);
+        roleRepository.save(userRoles);
         Place p = new Place("Bishkek");
         placeRepository.save(p);
-        Event ev = new Event("ballet",p,"jjhfgkjhgsgeuh");
+        Event ev = new Event.EventBuild("ballet", p).build();
         eventRepository.save(ev);
-        EventProposals evp = new EventProposals(user1,p,ev);
+        EventProposals evp = new EventProposals.ProposalsBuild("ballet", user1, p).build();
         eventProposalsRepository.save(evp);
-        TravelDeals tr = new TravelDeals(user1,p,ev);
-        travelDealsRepository.save(tr);
-        Sights s = new Sights("theater",p);
+
+        Sights s = new Sights("theater", p);
         sightsRepository.save(s);
 
     }

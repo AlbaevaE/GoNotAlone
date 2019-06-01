@@ -29,10 +29,10 @@ public class EventProposals {//предложения по мероприяти�
     private String description;//описание
     private Calendar calendar;//время и дата
     private Category category; //категория мероприятия
-    private LocalDateTime time;
-    private ApplicationStatus status;
+    private LocalDateTime time;//вермя подачи предложения
+    private ApplicationStatus status;//статус рассмотрения предложения
 
-    public static class ProposalBuild {
+    public static class ProposalsBuild {
         private Long id;
         private String name;
         private User user;
@@ -43,24 +43,24 @@ public class EventProposals {//предложения по мероприяти�
         private LocalDateTime time;
         private ApplicationStatus status;
 
-        public ProposalBuild(String name, User user, Place place) {
+        public ProposalsBuild(String name, User user, Place place) {
             this.name = name;
             this.user = user;
             this.place = place;
             this.time = time;
         }
 
-        public ProposalBuild withDescription(String description) {
+        public ProposalsBuild withDescription(String description) {
             this.description = description;
             return this;
         }
 
-        public ProposalBuild withCalendar(Calendar calendar) {
+        public ProposalsBuild withCalendar(Calendar calendar) {
             this.calendar = calendar;
             return this;
         }
 
-        public ProposalBuild withCategory(Category category) {
+        public ProposalsBuild withCategory(Category category) {
             this.category = category;
             return this;
         }
@@ -73,9 +73,11 @@ public class EventProposals {//предложения по мероприяти�
             proposals.description = this.description;
             proposals.calendar = this.calendar;
             proposals.category = this.category;
+            proposals.status = this.status;
             return proposals;
         }
     }
     //здесь нужен метод одобрения заявки через сеттер
+
 
 }

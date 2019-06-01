@@ -45,13 +45,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .usersByUsernameQuery("select login, password, " +
                         "is_active from g_user where login = ?")
                 .authoritiesByUsernameQuery("select u.login," +
-                        "ur.role as role " +
-                        "from g_user u inner join g_user_roles ur on u.id = ur.user_id " +
+                        "g.role_name as role " +
+                        "from g_user u inner join user_roles ur on u.id = ur.user_id inner join g_role g on ur.role_id = g.id " +
                         "where u.login = ?");
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 }

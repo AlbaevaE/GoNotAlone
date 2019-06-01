@@ -10,7 +10,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
-
+@Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 @Table(name = "g_user")
@@ -39,45 +39,7 @@ public class User {
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<UserRoles> roles;
-
-    public static class UserBuild {
-        private Long id;
-        private String name;
-        private String phoneNumber;
-        private String email;
-        private String login;
-        private String password;
-        private int isActive;
-        private Set<UserRoles>roles;
-
-        public UserBuild(String name, String phoneNumber, String email, String login, String password) {
-            this.name = name;
-            this.phoneNumber = phoneNumber;
-            this.email = email;
-            this.login = login;
-            this.password = password;
-        }
-
-
-
-        public UserBuild withRole(Set<UserRoles> roles) {
-            this.roles = roles;
-            return this;
-        }
-
-        public User build() {
-            User user = new User();
-            user.name = this.name;
-            user.phoneNumber = this.phoneNumber;
-            user.email = this.email;
-            user.login = this.login;
-            user.password = this.password;
-            user.isActive = this.isActive;
-            user.roles = this.roles;
-            return user;
-        }
-    }
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -135,11 +97,49 @@ public class User {
         this.isActive = isActive;
     }
 
-    public Set<UserRoles> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<UserRoles> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public static class UserBuild {
+        private Long id;
+        private String name;
+        private String phoneNumber;
+        private String email;
+        private String login;
+        private String password;
+        private int isActive;
+        private Set<Role> roles;
+
+        public UserBuild(String name, String phoneNumber, String email, String login, String password) {
+            this.name = name;
+            this.phoneNumber = phoneNumber;
+            this.email = email;
+            this.login = login;
+            this.password = password;
+        }
+
+
+        public UserBuild withRole(Set<Role> roles) {
+            this.roles = roles;
+            return this;
+        }
+
+        public User build() {
+            User user = new User();
+            user.name = this.name;
+            user.phoneNumber = this.phoneNumber;
+            user.email = this.email;
+            user.login = this.login;
+            user.password = this.password;
+            user.isActive = this.isActive;
+            user.roles = this.roles;
+            return user;
+        }
+    }
+
 }

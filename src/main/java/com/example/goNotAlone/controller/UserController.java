@@ -1,7 +1,8 @@
 package com.example.goNotAlone.controller;
 
+import com.example.goNotAlone.model.Role;
 import com.example.goNotAlone.model.User;
-import com.example.goNotAlone.model.UserRoles;
+import com.example.goNotAlone.repository.RoleRepository;
 import com.example.goNotAlone.repository.UserRepository;
 import com.example.goNotAlone.repository.UserRolesRepository;
 import com.example.goNotAlone.service.GenericService;
@@ -24,9 +25,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
-    private UserRolesRepository userRolesRepository;
+    private RoleRepository roleRepository;
+
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
@@ -59,8 +60,8 @@ public class UserController {
     public User saveUser(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setIsActive(1);
-        UserRoles userRole = userRolesRepository.findByRole("ADMIN");
-        user.setRoles(new HashSet<UserRoles>(Arrays.asList(userRole)));
+        Role userRole = roleRepository.findAll().stream().filter(x -> x.getRoleName().equals("ADMIN")).findFirst().get();
+        user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
         return userRepository.save(user);
     }
 }
