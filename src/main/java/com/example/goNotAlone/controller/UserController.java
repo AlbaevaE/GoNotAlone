@@ -4,7 +4,7 @@ import com.example.goNotAlone.model.Role;
 import com.example.goNotAlone.model.User;
 import com.example.goNotAlone.repository.RoleRepository;
 import com.example.goNotAlone.repository.UserRepository;
-import com.example.goNotAlone.repository.UserRolesRepository;
+//import com.example.goNotAlone.repository.UserRolesRepository;
 import com.example.goNotAlone.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;

@@ -13,8 +13,10 @@ public class Place {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String place;//описание
-    private Double longitude;//долгота
-    private Double latitude;//широта
+    @OneToOne
+    @JoinColumn(name = "map_id")
+    private Map map;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -22,7 +24,6 @@ public class Place {
 
     //функционал подтверждения
     //сортировка по дате
-    //место должно принадлежать юзеру
     public Place() {
     }
 
