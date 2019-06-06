@@ -1,5 +1,6 @@
 package com.example.goNotAlone.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,10 +14,10 @@ import java.util.Set;
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "g_user")
+@Table(name = "user1")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name", nullable = false)
     @NotEmpty(message = "*Please provide your name")
@@ -25,20 +26,23 @@ public class User {
     private String phoneNumber;
     @Column(name = "email", nullable = false)
     @Email(message = "*Please provide a valid Email")
-    @NotEmpty(message = "*Please provide an email")
+//    @NotEmpty(message = "*Please provide an email")
     private String email;
     @Column(name = "login", nullable = false, unique = true)
     private String login;
     @Column(name = "password", nullable = false, unique = true)
     @Length(min = 5, message = "*Your password must have at least 5 characters")
-    @NotEmpty(message = "*Please provide your password")
+//    @NotEmpty(message = "*Please provide your password")
+    @JsonIgnore
     private String password;
     @Column(name = "is_active", nullable = false)
+    @JsonIgnore
     private int isActive;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JsonIgnore
     private Set<Role> roles;
 
     public Long getId() {

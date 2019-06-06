@@ -1,5 +1,6 @@
 package com.example.goNotAlone.bootstrap;
 
+import com.example.goNotAlone.enums.Category;
 import com.example.goNotAlone.model.*;
 import com.example.goNotAlone.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,9 @@ public class Bootsrap implements CommandLineRunner {
         eventRepository.save(ev);
         EventProposals evp = new EventProposals.ProposalsBuild("ballet", user1, p).build();
         eventProposalsRepository.save(evp);
+        Event event = new Event.EventBuild("birthday",null).build();
+        event.setCategory(Category.MOVIE);
+        eventRepository.save(event);
 
         Sights s = new Sights("theater", p);
         sightsRepository.save(s);

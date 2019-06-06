@@ -58,7 +58,7 @@ public class EventServiceImpl implements GenericService<Event>,EventService {
     }
 
     @Override
-    public List<Event> getEventByPlace(Place place) {
+    public List<Event> getEventByPlace(String place) {
         return null;
     }
 }

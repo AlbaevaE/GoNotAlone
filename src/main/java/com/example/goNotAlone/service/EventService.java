@@ -15,5 +15,5 @@ public interface EventService {
 
     List<Event> getEventByUser(User user);
 
-    List<Event> getEventByPlace(Place place);
+    List<Event> getEventByPlace(String place);
 }
