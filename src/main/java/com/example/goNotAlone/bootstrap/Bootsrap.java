@@ -34,12 +34,11 @@ public class Bootsrap implements CommandLineRunner {
         roleRepository.save(userRoles);
         Place p = new Place("Bishkek");
         placeRepository.save(p);
-        Event ev = new Event.EventBuild("ballet", p).build();
+        Event ev = new Event.EventBuild("ballet", p).withCategory(Category.SPORT).build();
         eventRepository.save(ev);
-        EventProposals evp = new EventProposals.ProposalsBuild("ballet", user1, p).build();
-        eventProposalsRepository.save(evp);
-        Event event = new Event.EventBuild("birthday",null).build();
-        event.setCategory(Category.MOVIE);
+//        EventProposals evp = new EventProposals.ProposalsBuild("ballet", user1, p).build();
+//        eventProposalsRepository.save(evp);
+        Event event = new Event.EventBuild("Birdman", null).withCategory(Category.MOVIE).build();
         eventRepository.save(event);
 
         Sights s = new Sights("theater", p);

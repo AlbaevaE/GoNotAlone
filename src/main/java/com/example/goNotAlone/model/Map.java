@@ -1,8 +1,11 @@
 package com.example.goNotAlone.model;
 
 
+import lombok.Data;
+
 import javax.persistence.*;
 
+@Data
 @Entity
 @Table(name = "map")
 public class Map {
@@ -11,7 +14,7 @@ public class Map {
     private Long id;
     private Double longitude;//долгота
     private Double latitude;//широта
-    private Double h;
+
 
     public Map() {
 
@@ -23,10 +26,6 @@ public class Map {
 
     }
 
-    public Map(double lat, double lon, double h) {
-        this.latitude = lat;
-        this.longitude = lon;
-        this.h = h;
-    }
+
 
 }

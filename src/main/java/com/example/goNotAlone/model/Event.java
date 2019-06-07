@@ -29,7 +29,7 @@ public class Event {
     @JoinColumn(name = "user_id")
     private User user;
     private LocalDateTime time;
-    //поиск по месту или дате или названию
+    //поиск по месту, дате или категории
 
 
     public Long getId() {
