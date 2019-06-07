@@ -60,31 +60,6 @@ public class UserServiceImpl implements GenericService<User>, UserService {
 
 
     @Override
-    public Application confirmApp(Long userId, Long appId) {
-        User user = userRepository.findById(userId).get();
-        Application app = applicationRepository.findById(appId).get();
-        if (app.getEvent().getPlace() == null) {
-            app.setStatus(ApplicationStatus.REJECTED);
-        } else {
-            app.setStatus(ApplicationStatus.APPROVED);
-        }
-        applicationRepository.save(app);
-        return app;
-    }
-
-    @Override
-    public Application click(Long userId, Long appId) {
-        Application app = applicationRepository.findById(appId).get();
-        List<User> users = app.getUserList();
-        if (app.getStatus().equals(ApplicationStatus.APPROVED)) {
-            users.add(userRepository.findById(userId).get());
-            app.setUserList(users);
-        }
-        applicationRepository.save(app);
-        return app;
-    }
-
-    @Override
     public User add(User user) {
         List<Role> roles = this.roleRepository.findAll();
         user.setIsActive(1);
