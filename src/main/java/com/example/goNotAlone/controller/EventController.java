@@ -1,7 +1,11 @@
 package com.example.goNotAlone.controller;
 
+import com.example.goNotAlone.model.Application;
 import com.example.goNotAlone.model.Event;
+import com.example.goNotAlone.service.ApplicationService;
+import com.example.goNotAlone.service.EventServiceImpl;
 import com.example.goNotAlone.service.GenericService;
+import com.example.goNotAlone.util.Confirm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -9,11 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(EventController.URL_EVENT)
+@RequestMapping("/event")
 public class EventController {
-    public static final String URL_EVENT = "/goNotAlone/Event";
     @Autowired
     private GenericService<Event> genericService;
+    @Autowired
+    private EventServiceImpl eventService;
 
     @GetMapping(path = "getEventById/{id}", produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public Event getEventById(@PathVariable Long id) {
@@ -39,5 +44,10 @@ public class EventController {
     @DeleteMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public void deleteAllEvent() {
         this.genericService.deleteAll();
+    }
+
+    @PutMapping("/click")
+    public Application click(@RequestBody Confirm u) {
+        return this.eventService.click(u.getUserId(), u.getAppId());
     }
 }

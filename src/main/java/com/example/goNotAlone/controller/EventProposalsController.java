@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(EventProposalsController.URL_EVENT_PROPOSALS)
+@RequestMapping("/eventProposals")
 public class EventProposalsController {
-    public static final String URL_EVENT_PROPOSALS = "/goNotAlone/eventProposals";
+
 
     @Autowired
     private GenericService<EventProposals> genericService;

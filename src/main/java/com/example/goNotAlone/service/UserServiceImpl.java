@@ -13,8 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
+
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -42,21 +41,7 @@ public class UserServiceImpl implements GenericService<User>, UserService {
         return userRepository.save(user);
     }
 
-    @Override
-    public Application addApp(Long userId, Long eventId, String message) {
-        Application a = new Application();
-        User user = userRepository.findById(userId).get();
-        Event event = eventRepository.findById(eventId).get();
-        a.setUser(user);
-        a.setEvent(event);
-        a.setTime(LocalDateTime.now());
-        a.setMessage(message);
-        List<User> users = new ArrayList<>();
-        a.setUserList(users);
-        a.setStatus(ApplicationStatus.AWAITING);
-        applicationRepository.save(a);
-        return a;
-    }
+
 
 
     @Override

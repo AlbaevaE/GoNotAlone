@@ -74,18 +74,7 @@ public class EventServiceImpl implements GenericService<Event>, EventService {
         return null;
     }
 
-    @Override
-    public Application confirmApp(Long userId, Long appId) {
-        // User user = userRepository.findById(userId).get();
-        Application app = applicationRepository.findById(appId).get();
-        if (app.getEvent().getPlace() == null) {
-            app.setStatus(ApplicationStatus.REJECTED);
-        } else {
-            app.setStatus(ApplicationStatus.APPROVED);
-        }
-        applicationRepository.save(app);
-        return app;
-    }
+
 
     @Override
     public Application click(Long userId, Long appId) {

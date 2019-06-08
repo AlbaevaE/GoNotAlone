@@ -9,9 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(RoleController.URL_USER_ROLES)
+@RequestMapping("/role")
 public class RoleController {
-    public static final String URL_USER_ROLES = "/goNotAlone/Role";
 
     @Autowired
     private GenericService<Role> genericService;

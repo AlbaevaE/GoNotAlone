@@ -21,9 +21,8 @@ public class Place {
     @JoinColumn(name = "user_id")
     private User user;
 
+    //todo sort by place
 
-    //функционал подтверждения
-    //сортировка по дате
     public Place() {
     }
 

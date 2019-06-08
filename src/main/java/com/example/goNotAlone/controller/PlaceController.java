@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping(PlaceController.URL_PLACE)
+@RequestMapping("/place")
 public class PlaceController {
-    public static final String URL_PLACE = "/goNotAlone/Place";
+
     @Autowired
     private GenericService<Place> genericService;
 
