@@ -1,6 +1,6 @@
 package com.example.goNotAlone.service;
 
-import com.example.goNotAlone.enums.Category;
+
 import com.example.goNotAlone.model.Application;
 import com.example.goNotAlone.model.Event;
 
@@ -12,9 +12,9 @@ import java.util.List;
 public interface EventService {
     List<Event> getEventByDate(Calendar calendar);
 
-    List<Event> getEventByCategory(Category category);
+    List<Event> getEventByCategory(String category,Long id);
 
-    List<Event> getEventByUser(User user);
+    List<Event> getEventByUser(Long userId,Long eventId);
 
     List<Event> getEventByPlace(String place);
 

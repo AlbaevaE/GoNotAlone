@@ -56,12 +56,16 @@ public class EventServiceImpl implements GenericService<Event>, EventService {
     }
 
     @Override
-    public List<Event> getEventByCategory(Category category) {
+    public List<Event> getEventByCategory(String category,Long id) {
+
+       // Event event = activityRepository.findAll();
         return null;
     }
 
     @Override
-    public List<Event> getEventByUser(User user) {
+    public List<Event> getEventByUser(Long userId, Long eventId) {
+
+
         return null;
     }
 
