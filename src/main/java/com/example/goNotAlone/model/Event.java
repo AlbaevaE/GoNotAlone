@@ -17,6 +17,7 @@ import java.util.Calendar;
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "event_id")
     private Long id;
     private String name;
     @OneToOne
@@ -24,6 +25,8 @@ public class Event {
     private Place place;
     private String description;//описание
     private Calendar calendar;//время и дата
+
+    @Enumerated(EnumType.STRING)
     private Category category; //категория мероприятия
     @ManyToOne
     @JoinColumn(name = "user_id")

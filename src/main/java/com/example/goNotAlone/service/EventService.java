@@ -10,9 +10,9 @@ import java.util.Calendar;
 import java.util.List;
 
 public interface EventService {
-    List<Event> getEventByDate(String calendar);
+    Event getEventByDate(String calendar);
 
-    Event getEventByCategory(String category);
+    List<Event> findByCategory(Long eventId,String category);
 
    // Event getEventByUser(Long userId,Long eventId);
 

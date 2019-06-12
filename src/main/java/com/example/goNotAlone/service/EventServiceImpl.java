@@ -52,13 +52,15 @@ public class EventServiceImpl implements GenericService<Event>, EventService {
     }
 
     @Override
-    public List<Event> getEventByDate(String calendar) {
-        return eventRepository.findAll().stream().filter(x -> x.getCalendar().equals(calendar)).collect(Collectors.toList());
+    public Event getEventByDate(String calendar) {
+        return null;
+        // return eventRepository.findAll().stream().filter(x -> x.getCalendar().equals(calendar)).collect(Collectors.toList());
     }
 
     @Override
-    public Event getEventByCategory(String category) {
-
+    public List<Event> findByCategory(Long eventId,String category) {
+        List<Event> ev = eventRepository.findByCategory(eventId,category);
+        return ev;
         //return eventRepository.findAll().stream().filter(x -> x.getCategory().equals(category)).collect(Collectors.toList());
     }
 

@@ -8,6 +8,7 @@ import com.example.goNotAlone.service.ApplicationService;
 import com.example.goNotAlone.service.EventServiceImpl;
 import com.example.goNotAlone.service.GenericService;
 import com.example.goNotAlone.util.Confirm;
+import com.example.goNotAlone.util.FindByCategory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -63,11 +64,6 @@ public class EventController {
     public List<Event> getEventsByUserId(@PathVariable Long id) {
         return eventRepository.findByUserId(id);
     }
-//    @Secured("ROLE_ADMIN")
-//    @GetMapping(path = "/getByUserId/{id}")
-//    public Response getEventsByUserId(@PathVariable Long id) {
-//        return new Response(true, "All comments by User with id = " + id, eventRepository.getEventsByUserId(id));
-//    }
 
     @GetMapping("/getEventsByPlace/{id}")
     public List<Event> getEventByPlace(@PathVariable Long id) {
@@ -75,6 +71,8 @@ public class EventController {
 
     }
 
-//    @GetMapping ("/getEventByCategory")
-//    public Event getEventByCategory(@RequestBody )
+    @GetMapping("/getEventByCategory/{eventId}/{category}")
+    public List<Event> findByCategory(@PathVariable Long eventId, @PathVariable String category) {
+        return eventRepository.findByCategory(eventId, category);
+    }
 }
