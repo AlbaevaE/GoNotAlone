@@ -13,7 +13,7 @@ import java.util.Calendar;
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "event")
+@Table(name = "event_1")
 public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

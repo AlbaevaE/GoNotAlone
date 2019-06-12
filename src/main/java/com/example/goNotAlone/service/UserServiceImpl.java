@@ -1,8 +1,5 @@
 package com.example.goNotAlone.service;
 
-import com.example.goNotAlone.enums.ApplicationStatus;
-import com.example.goNotAlone.model.Application;
-import com.example.goNotAlone.model.Event;
 import com.example.goNotAlone.model.Role;
 import com.example.goNotAlone.model.User;
 import com.example.goNotAlone.repository.ApplicationRepository;
@@ -29,7 +26,10 @@ public class UserServiceImpl implements GenericService<User>, UserService {
     @Autowired
     private ApplicationRepository applicationRepository;
 
-    BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+    @Autowired
+            private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
 
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
@@ -45,27 +45,41 @@ public class UserServiceImpl implements GenericService<User>, UserService {
 
 
     @Override
-    public User add(User user) {
-        List<Role> roles = this.roleRepository.findAll();
+    public User registration(User u) {
+        User user = userRepository.save(u);
+        List<Role> roles = roleRepository.findAll();
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         user.setIsActive(1);
-//        user.setPassword(encoder.encode(user.getPassword()));
         boolean isRole = false;
-        for (Role r : roles) {
-            if (r.getRoleName().equals("USER")) {
-                user.setRoles(new HashSet<Role>(Arrays.asList(r)));
+        for (Role role : roles) {
+            if (role.getRoleName().equals("ROLE_USER")) {
+                user.setRoles(new HashSet<>(Arrays.asList(role)));
                 isRole = true;
                 break;
             }
         }
         if (!isRole) {
             Role role = new Role();
-            role.setRoleName("USER");
-            user.setRoles(new HashSet<Role>(Arrays.asList(role)));
+            role.setRoleName("ROLE_USER");
+            user.setRoles(new HashSet<>(Arrays.asList(role)));
         }
         userRepository.save(user);
         return user;
-
     }
+
+    @Override
+    public boolean login(String email, String password) {
+        List<User> users = userRepository.findAll();
+        boolean logIn = false;
+        for (User user : users) {
+            if (user.getEmail().equals(email) && user.getPassword().equals(password)) {
+                logIn = true;
+                break;
+            }
+        }
+        return logIn;
+    }
+
 
     @Override
     public User getById(Long id) {

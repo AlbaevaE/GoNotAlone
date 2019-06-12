@@ -1,10 +1,10 @@
 package com.example.goNotAlone.service;
 
 import com.example.goNotAlone.enums.ApplicationStatus;
-import com.example.goNotAlone.enums.Category;
+
 import com.example.goNotAlone.model.Application;
 import com.example.goNotAlone.model.Event;
-import com.example.goNotAlone.model.Place;
+
 import com.example.goNotAlone.model.User;
 import com.example.goNotAlone.repository.ApplicationRepository;
 import com.example.goNotAlone.repository.EventRepository;
@@ -12,13 +12,14 @@ import com.example.goNotAlone.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
+
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements GenericService<Event>, EventService {
     @Autowired
-    private EventRepository activityRepository;
+    private EventRepository eventRepository;
     @Autowired
     private ApplicationRepository applicationRepository;
     @Autowired
@@ -27,53 +28,54 @@ public class EventServiceImpl implements GenericService<Event>, EventService {
 
     @Override
     public Event addG(Event activity) {
-        return this.activityRepository.save(activity);
+        return this.eventRepository.save(activity);
     }
 
     @Override
     public Event getById(Long id) {
-        return this.activityRepository.findById(id).get();
+        return this.eventRepository.findById(id).get();
     }
 
     @Override
     public List getAll() {
-        return this.activityRepository.findAll();
+        return this.eventRepository.findAll();
     }
 
     @Override
     public void deleteById(Long id) {
-        this.activityRepository.deleteById(id);
+        this.eventRepository.deleteById(id);
     }
 
     @Override
     public void deleteAll() {
-        this.activityRepository.deleteAll();
+        this.eventRepository.deleteAll();
     }
 
     @Override
-    public List<Event> getEventByDate(Calendar calendar) {
-        return null;
+    public List<Event> getEventByDate(String calendar) {
+        return eventRepository.findAll().stream().filter(x -> x.getCalendar().equals(calendar)).collect(Collectors.toList());
     }
 
     @Override
-    public List<Event> getEventByCategory(String category,Long id) {
+    public Event getEventByCategory(String category) {
 
-       // Event event = activityRepository.findAll();
-        return null;
+        //return eventRepository.findAll().stream().filter(x -> x.getCategory().equals(category)).collect(Collectors.toList());
     }
 
-    @Override
-    public List<Event> getEventByUser(Long userId, Long eventId) {
+//    @Override
+//    public Event getEventByUser(Long userId,Long eventId) {
+//        Event ev = eventRepository.findById(eventId).get();
+//
+//        return null;
+//
+//        //return eventRepository.findAll().stream().filter(x -> x.getUser().getId().equals(id)).collect(Collectors.toList());
+//
+//    }
 
-
-        return null;
-    }
-
-    @Override
-    public List<Event> getEventByPlace(String place) {
-        return null;
-    }
-
+//    @Override
+//    public List<Event> getEventByPlace(Long id) {
+//        return eventRepository.findAll().stream().filter(x -> x.getPlace().getId().equals(id)).collect(Collectors.toList());
+//    }
 
 
     @Override

@@ -10,13 +10,13 @@ import java.util.Calendar;
 import java.util.List;
 
 public interface EventService {
-    List<Event> getEventByDate(Calendar calendar);
+    List<Event> getEventByDate(String calendar);
 
-    List<Event> getEventByCategory(String category, Long id);
+    Event getEventByCategory(String category);
 
-    List<Event> getEventByUser(Long userId, Long eventId);
+   // Event getEventByUser(Long userId,Long eventId);
 
-    List<Event> getEventByPlace(String place);
+    //List<Event> getEventByPlace(Long id);
 
 
     Application click(Long userId, Long appId);

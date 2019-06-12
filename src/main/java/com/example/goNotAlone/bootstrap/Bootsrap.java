@@ -28,17 +28,17 @@ public class Bootsrap implements CommandLineRunner {
     public void run(String... args) throws Exception {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Role userRoles = new Role("ADMIN");
-        User user1 = new User.UserBuild("Kate", "0778412796",
+        User user1 = new User.UserBuild("Elvira", "98785933",
                 "aelvira312@gmail.com", "elvira", "Babushka85").build();
         userRepository.save(user1);
         roleRepository.save(userRoles);
         Place p = new Place("Bishkek");
         placeRepository.save(p);
-        Event ev = new Event.EventBuild("ballet", p).withCategory(Category.SPORT).build();
+        Event ev = new Event.EventBuild("Football match", p).withCategory(Category.SPORT).withUser(user1).build();
         eventRepository.save(ev);
 //        EventProposals evp = new EventProposals.ProposalsBuild("ballet", user1, p).build();
 //        eventProposalsRepository.save(evp);
-        Event event = new Event.EventBuild("Birdman", null).withCategory(Category.MOVIE).build();
+        Event event = new Event.EventBuild("Birdman", null).withCategory(Category.MOVIE).withUser(user1).build();
         eventRepository.save(event);
 
         Sights s = new Sights("theater", p);

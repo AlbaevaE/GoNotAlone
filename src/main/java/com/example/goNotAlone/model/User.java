@@ -11,10 +11,10 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.Set;
 
-@Data
+
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "user1")
+@Table(name = "usr")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

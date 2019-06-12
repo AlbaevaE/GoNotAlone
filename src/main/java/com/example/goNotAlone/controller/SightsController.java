@@ -20,12 +20,12 @@ public class SightsController {
         return this.genericService.getById(id);
     }
 
-    @GetMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @GetMapping(path = "/getAllSights",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public List<Sights> getAllSights() {
         return this.genericService.getAll();
     }
 
-    @PostMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @PostMapping(path = "/addSights",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public Sights createSights(@RequestBody Sights s) {
         return this.genericService.addG(s);
     }
@@ -36,7 +36,7 @@ public class SightsController {
         this.genericService.deleteById(id);
     }
 
-    @DeleteMapping(produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
+    @DeleteMapping(path = "/deleteAllSights",produces = {MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE})
     public void deleteAll() {
         this.genericService.deleteAll();
     }
