@@ -3,7 +3,6 @@ package com.example.goNotAlone.util;
 public class Confirm {
     Long userId;
     Long appId;
-
     public Confirm() {
     }
 

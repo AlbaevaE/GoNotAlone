@@ -2,28 +2,59 @@ package com.example.goNotAlone.service;
 
 import com.example.goNotAlone.enums.ApplicationStatus;
 
-import com.example.goNotAlone.model.Application;
+import com.example.goNotAlone.enums.Category;
 import com.example.goNotAlone.model.Event;
 
+import com.example.goNotAlone.model.Place;
 import com.example.goNotAlone.model.User;
-import com.example.goNotAlone.repository.ApplicationRepository;
 import com.example.goNotAlone.repository.EventRepository;
+import com.example.goNotAlone.repository.PlaceRepository;
 import com.example.goNotAlone.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class EventServiceImpl implements GenericService<Event>, EventService {
     @Autowired
     private EventRepository eventRepository;
     @Autowired
-    private ApplicationRepository applicationRepository;
-    @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private PlaceRepository placeRepository;
+
+    @Override
+    public Event addApp(Long userId, String name, Long placeId, String description, Category category) {
+        User user = userRepository.findById(userId).get();
+        Event event = new Event();
+        event.setUser(user);
+        event.setName(name);
+        Place place = placeRepository.findById(placeId).get();
+        event.setPlace(place);
+        event.setDescription(description);
+        event.setCategory(category);
+        event.setStatus(ApplicationStatus.AWAITING);
+        eventRepository.save(event);
+        return event;
+    }
+
+    @Override
+    public Event confirmApp(Long userId, Long evId) {
+        // User user = userRepository.findById(userId).get();
+        Event ev = eventRepository.findById(evId).get();
+        if (ev.getPlace() == null) {
+            ev.setStatus(ApplicationStatus.REJECTED);
+        } else {
+            ev.setStatus(ApplicationStatus.APPROVED);
+        }
+        eventRepository.save(ev);
+        return ev;
+    }
 
 
     @Override
@@ -57,22 +88,22 @@ public class EventServiceImpl implements GenericService<Event>, EventService {
         // return eventRepository.findAll().stream().filter(x -> x.getCalendar().equals(calendar)).collect(Collectors.toList());
     }
 
-    @Override
-    public List<Event> findByCategory(Long eventId,String category) {
-        List<Event> ev = eventRepository.findByCategory(eventId,category);
-        return ev;
-        //return eventRepository.findAll().stream().filter(x -> x.getCategory().equals(category)).collect(Collectors.toList());
-    }
-
 //    @Override
-//    public Event getEventByUser(Long userId,Long eventId) {
-//        Event ev = eventRepository.findById(eventId).get();
-//
-//        return null;
-//
-//        //return eventRepository.findAll().stream().filter(x -> x.getUser().getId().equals(id)).collect(Collectors.toList());
-//
+//    public List<Event> findByCategory(Long eventId,String category) {
+//        List<Event> ev = eventRepository.findByCategory(eventId,category);
+//        return ev;
+//        //return eventRepository.findAll().stream().filter(x -> x.getCategory().equals(category)).collect(Collectors.toList());
 //    }
+
+    @Override
+    public Event getEventByUser(Long userId, Long eventId) {
+        Event ev = eventRepository.findById(eventId).get();
+
+        return null;
+
+        // return eventRepository.findAll().stream().filter(x -> x.getUser().getId().equals(userId)).collect(Collectors.toList());
+
+    }
 
 //    @Override
 //    public List<Event> getEventByPlace(Long id) {
@@ -81,14 +112,14 @@ public class EventServiceImpl implements GenericService<Event>, EventService {
 
 
     @Override
-    public Application click(Long userId, Long appId) {
-        Application app = applicationRepository.findById(appId).get();
+    public Event click(Long userId, Long appId) {
+        Event app = eventRepository.findById(appId).get();
         List<User> users = app.getUserList();
         if (app.getStatus().equals(ApplicationStatus.APPROVED)) {
             users.add(userRepository.findById(userId).get());
             app.setUserList(users);
         }
-        applicationRepository.save(app);
+        eventRepository.save(app);
         return app;
     }
 

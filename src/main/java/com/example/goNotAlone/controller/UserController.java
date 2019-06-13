@@ -5,7 +5,7 @@ import com.example.goNotAlone.model.User;
 
 import com.example.goNotAlone.service.GenericService;
 import com.example.goNotAlone.service.UserService;
-import com.example.goNotAlone.service.UserServiceImpl;
+
 
 
 import com.example.goNotAlone.util.Login;
@@ -14,6 +14,8 @@ import org.springframework.http.HttpStatus;
 
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -97,19 +99,10 @@ public class UserController {
     private GenericService<User> userService;
     @Autowired
     private UserService usService;
-    @Autowired
-    private UserServiceImpl userServiceImpl;
 
-    @PostMapping("/registration")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<? extends Object> registration(@RequestBody User user) {
-        try {
-            return new ResponseEntity<>(usService.registration(user), HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
-        }
-    }
 
+
+    @Secured("ROLE_USER")
     @PostMapping("/login")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<? extends Object> logIn(@RequestBody Login login) {
@@ -124,7 +117,7 @@ public class UserController {
         }
     }
 
-
+    @Secured("ROLE_ADMIN")
     @GetMapping("/getAll")
     public ResponseEntity<List<? extends Object>> getUsers() {
         try {
@@ -133,7 +126,7 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @GetMapping("/getById/{id}")
     public ResponseEntity<? extends Object> getUserById(@PathVariable Long id) {
         try {
@@ -142,7 +135,7 @@ public class UserController {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
         }
     }
-
+    @PreAuthorize("hasAuthority('ADMIN')")
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<? extends Object> saveUser(@RequestBody User user) {
@@ -152,16 +145,8 @@ public class UserController {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
         }
     }
-//
-//    @PutMapping("/update")
-//    public ResponseEntity<? extends Object> updateUser(@RequestBody User user) {
-//        try {
-//            return new ResponseEntity<>(userService.addG(user), HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
-//        }
-//    }
 
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/deleteById/{id}")
     public ResponseEntity<? extends Object> deleteUserById(@PathVariable Long id) {
         try {
@@ -171,7 +156,7 @@ public class UserController {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
         }
     }
-
+    @Secured("ROLE_ADMIN")
     @DeleteMapping("/deleteAll")
     public ResponseEntity<? extends Object> deleteAllUsers() {
         try {

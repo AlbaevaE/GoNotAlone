@@ -1,17 +1,21 @@
 package com.example.goNotAlone.model;
 
+import com.example.goNotAlone.enums.ApplicationStatus;
 import com.example.goNotAlone.enums.Category;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Calendar;
+import java.util.List;
 
 
 @Data
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
+
 @Entity
 @Table(name = "event_1")
 public class Event {
@@ -28,12 +32,33 @@ public class Event {
 
     @Enumerated(EnumType.STRING)
     private Category category; //категория мероприятия
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    private ApplicationStatus status;
     private LocalDateTime time;
-    //поиск по месту, дате или категории
+    @ManyToMany
+    private List<User> userList;
 
+    public Event() {
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
+    }
+
+    public ApplicationStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(ApplicationStatus status) {
+        this.status = status;
+    }
 
     public Long getId() {
         return id;

@@ -2,7 +2,6 @@ package com.example.goNotAlone.service;
 
 import com.example.goNotAlone.model.Role;
 import com.example.goNotAlone.model.User;
-import com.example.goNotAlone.repository.ApplicationRepository;
 import com.example.goNotAlone.repository.EventRepository;
 import com.example.goNotAlone.repository.RoleRepository;
 import com.example.goNotAlone.repository.UserRepository;
@@ -23,12 +22,9 @@ public class UserServiceImpl implements GenericService<User>, UserService {
     private RoleRepository roleRepository;
     @Autowired
     private EventRepository eventRepository;
-    @Autowired
-    private ApplicationRepository applicationRepository;
 
     @Autowired
-            private BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     public User findUserByEmail(String email) {
@@ -37,19 +33,11 @@ public class UserServiceImpl implements GenericService<User>, UserService {
 
 
     @Override
-    public User addG(User user) {
-        return userRepository.save(user);
-    }
-
-
-
-
-    @Override
-    public User registration(User u) {
+    public User addG(User u) {
         User user = userRepository.save(u);
         List<Role> roles = roleRepository.findAll();
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
-        user.setIsActive(1);
+        user.setActive(1);
         boolean isRole = false;
         for (Role role : roles) {
             if (role.getRoleName().equals("ROLE_USER")) {

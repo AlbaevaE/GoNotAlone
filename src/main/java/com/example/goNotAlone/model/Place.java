@@ -1,6 +1,8 @@
 package com.example.goNotAlone.model;
 
 import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 
 import javax.persistence.*;
@@ -10,13 +12,13 @@ import javax.persistence.*;
 @Table(name = "place")
 public class Place {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String place;//описание
     @OneToOne
     @JoinColumn(name = "map_id")
     private Map map;
-
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
