@@ -17,8 +17,7 @@ public interface EventRepository extends JpaRepository<Event,Long> { //поис�
     @Query(value = "select * from event_1 e join place p on e.place_id = :id" , nativeQuery = true)
     List<Event> findByPlaceId(@Param("id") Long id);
 
-    @Query(value = "select e from event_1 e where e.event_id = :id and e.category = :category" , nativeQuery = true)
-    List<Event> findByCategory(@Param("id") Long id , @Param("category")String category);
+
 
 
 }

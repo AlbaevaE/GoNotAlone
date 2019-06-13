@@ -151,7 +151,7 @@ public class UserController {
     public ResponseEntity<? extends Object> deleteUserById(@PathVariable Long id) {
         try {
             this.userService.deleteById(id);
-            return new ResponseEntity<>("Deleted tour", HttpStatus.OK);
+            return new ResponseEntity<>("Deleted user", HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(e.toString(), HttpStatus.BAD_REQUEST);
         }

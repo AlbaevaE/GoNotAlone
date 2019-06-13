@@ -53,16 +53,18 @@ public class EventController {
         a.setUser(userRepository.findByName(principal.getName()));
         return this.genericService.addG(a);
     }
+
     @Secured("ROLE_ADMIN")
     @PutMapping("/confirm")
-    public Event confirm(@RequestBody Confirm confirm){
-        return eventService.confirmApp(confirm.getUserId(),confirm.getAppId());
+    public Event confirm(@RequestBody Confirm confirm) {
+        return eventService.confirmApp(confirm.getUserId(), confirm.getAppId());
     }
+
     @Secured("ROLE_ADMIN")
     @PostMapping("/addEvent")
     @ResponseStatus(HttpStatus.CREATED)
     public Event add(@RequestBody AddApp a) {
-        return eventService.addApp(a.getUserId(),a.getName(),a.getPlaceId(),a.getDescription(),a.getCategory());
+        return eventService.addApp(a.getUserId(), a.getName(), a.getPlaceId(), a.getDescription(), a.getCategory());
     }
 
     @Secured("ROLE_ADMIN")
@@ -96,10 +98,5 @@ public class EventController {
         return eventRepository.findByPlaceId(id);
 
     }
-//
-//    @Secured("ROLE_USER")
-//    @GetMapping("/getEventByCategory/{eventId}/{category}")
-//    public List<Event> findByCategory(@PathVariable Long eventId, @PathVariable String category) {
-//        return eventRepository.findByCategory(eventId, category);
-//    }
+
 }

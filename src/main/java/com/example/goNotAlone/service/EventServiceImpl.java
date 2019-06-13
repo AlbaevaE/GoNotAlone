@@ -88,12 +88,7 @@ public class EventServiceImpl implements GenericService<Event>, EventService {
         // return eventRepository.findAll().stream().filter(x -> x.getCalendar().equals(calendar)).collect(Collectors.toList());
     }
 
-//    @Override
-//    public List<Event> findByCategory(Long eventId,String category) {
-//        List<Event> ev = eventRepository.findByCategory(eventId,category);
-//        return ev;
-//        //return eventRepository.findAll().stream().filter(x -> x.getCategory().equals(category)).collect(Collectors.toList());
-//    }
+
 
     @Override
     public Event getEventByUser(Long userId, Long eventId) {
@@ -105,10 +100,6 @@ public class EventServiceImpl implements GenericService<Event>, EventService {
 
     }
 
-//    @Override
-//    public List<Event> getEventByPlace(Long id) {
-//        return eventRepository.findAll().stream().filter(x -> x.getPlace().getId().equals(id)).collect(Collectors.toList());
-//    }
 
 
     @Override
