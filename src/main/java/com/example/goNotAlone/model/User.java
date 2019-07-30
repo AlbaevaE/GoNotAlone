@@ -1,5 +1,6 @@
 package com.example.goNotAlone.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,10 +14,10 @@ import java.util.Set;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-@Table(name = "g_user")
+@Table(name = "user1")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name", nullable = false)
     @NotEmpty(message = "*Please provide your name")
@@ -25,59 +26,21 @@ public class User {
     private String phoneNumber;
     @Column(name = "email", nullable = false)
     @Email(message = "*Please provide a valid Email")
-    @NotEmpty(message = "*Please provide an email")
+//    @NotEmpty(message = "*Please provide an email")
     private String email;
-    @Column(name = "login", nullable = false, unique = true)
-    private String login;
     @Column(name = "password", nullable = false, unique = true)
     @Length(min = 5, message = "*Your password must have at least 5 characters")
-    @NotEmpty(message = "*Please provide your password")
+//    @NotEmpty(message = "*Please provide your password")
+
     private String password;
-    @Column(name = "is_active", nullable = false)
-    private int isActive;
+
+    private int active;
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private Set<UserRoles> roles;
-
-    public static class UserBuild {
-        private Long id;
-        private String name;
-        private String phoneNumber;
-        private String email;
-        private String login;
-        private String password;
-        private int isActive;
-        private Set<UserRoles>roles;
-
-        public UserBuild(String name, String phoneNumber, String email, String login, String password) {
-            this.name = name;
-            this.phoneNumber = phoneNumber;
-            this.email = email;
-            this.login = login;
-            this.password = password;
-        }
-
-
-
-        public UserBuild withRole(Set<UserRoles> roles) {
-            this.roles = roles;
-            return this;
-        }
-
-        public User build() {
-            User user = new User();
-            user.name = this.name;
-            user.phoneNumber = this.phoneNumber;
-            user.email = this.email;
-            user.login = this.login;
-            user.password = this.password;
-            user.isActive = this.isActive;
-            user.roles = this.roles;
-            return user;
-        }
-    }
+    @JsonIgnore
+    private Set<Role> roles;
 
     public Long getId() {
         return id;
@@ -111,14 +74,6 @@ public class User {
         this.email = email;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -127,19 +82,54 @@ public class User {
         this.password = password;
     }
 
-    public int getIsActive() {
-        return isActive;
+    public int getActive() {
+        return active;
     }
 
-    public void setIsActive(int isActive) {
-        this.isActive = isActive;
+    public void setActive(int active) {
+        this.active = active;
     }
 
-    public Set<UserRoles> getRoles() {
+    public Set<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<UserRoles> roles) {
+    public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+    public static class UserBuild {
+        private Long id;
+        private String name;
+        private String phoneNumber;
+        private String email;
+        private String password;
+        private int active;
+        private Set<Role> roles;
+
+        public UserBuild(String name, String phoneNumber, String email, String password) {
+            this.name = name;
+            this.phoneNumber = phoneNumber;
+            this.email = email;
+            this.password = password;
+        }
+
+
+        public UserBuild withRole(Set<Role> roles) {
+            this.roles = roles;
+            return this;
+        }
+
+        public User build() {
+            User user = new User();
+            user.name = this.name;
+            user.phoneNumber = this.phoneNumber;
+            user.email = this.email;
+            user.password = this.password;
+            user.active = this.active;
+            user.roles = this.roles;
+            return user;
+        }
+    }
+
 }

@@ -1,15 +1,19 @@
 package com.example.goNotAlone.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
 
 import javax.sql.DataSource;
 
@@ -17,41 +21,52 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
-    DataSource dataSource;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Value("${spring.queries.users-query}")
+    private String usersQuery;
+
+    @Value("${spring.queries.roles-query}")
+    private String rolesQuery;
+
+    @Bean
+    public BCryptPasswordEncoder getEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth)
+            throws Exception {
+        auth.
+                jdbcAuthentication()
+                .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery)
+                .dataSource(dataSource)
+                .passwordEncoder(bCryptPasswordEncoder);
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers(//"/goNotAlone/Place/addPlace",
-//                        "/goNotAlone/Place/getPlace",
-//                        "/goNotAlone/Place/deletePlace",
-//                        "/goNotAlone/Place/getAllPlace",
-//                        "/goNotAlone/Place/deleteAllPlace"
-                          "/goNotAlone/**",
-                        "/goNotAlone/User/")
-                .access("hasRole('ADMIN')")
-                .and()
-                .httpBasic()
-                .and()
-                .csrf()
-                .disable();
+
+        http.httpBasic().and()
+                .authorizeRequests().anyRequest().authenticated()
+                .antMatchers("/**").permitAll()
+//                .antMatchers("/registration").permitAll()
+//                .antMatchers("/admin/**").hasAuthority("ADMIN").anyRequest()
+//                .authenticated().and().csrf().disable().formLogin()
+//                .loginPage("/login").failureUrl("/login?error=true")
+//                .defaultSuccessUrl("/admin/home")
+//                .usernameParameter("email")
+//                .passwordParameter("password")
+                .and().csrf().disable();
     }
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                .usersByUsernameQuery("select login, password, " +
-                        "is_active from g_user where login = ?")
-                .authoritiesByUsernameQuery("select u.login," +
-                        "ur.role as role " +
-                        "from g_user u inner join g_user_roles ur on u.id = ur.user_id " +
-                        "where u.login = ?");
-    }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+
+
 }
+
